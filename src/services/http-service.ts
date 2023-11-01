@@ -1,4 +1,5 @@
 import axios, { CanceledError } from "axios";
+import { Entity } from "../entities/entity";
 
 export { CanceledError };
 
@@ -9,12 +10,7 @@ const client = axios.create({
   },
 });
 
-export interface Entity {
-  id: number;
-  name: string;
-}
-
-class HttpService {
+export class HttpService {
   constructor(private endpoint: string) {}
 
   getAll<T>() {
