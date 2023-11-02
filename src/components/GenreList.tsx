@@ -1,11 +1,15 @@
 import service from "../services/genre-service";
 import useData from "../hooks/useData";
 import { Genre } from "../entities/genre-entity";
-import { HStack, Image, List, ListItem, Text } from "@chakra-ui/react";
+import { Button, HStack, Image, List, ListItem, Text } from "@chakra-ui/react";
 import cropImage from "../services/image-url-service";
 import GenreListSkeleton from "./GenreListSkeleton";
 
-const GenreList = () => {
+interface Props {
+  onSelectGenre: (genre: Genre) => void;
+}
+
+const GenreList = ({ onSelectGenre }: Props) => {
   const { data: genres, error, isLoading } = useData<Genre>(service);
 
   return (
@@ -21,7 +25,13 @@ const GenreList = () => {
                 boxSize="32px"
                 borderRadius={8}
               />
-              <Text fontSize="lg">{g.name}</Text>
+              <Button
+                variant="link"
+                onClick={() => onSelectGenre(g)}
+                fontSize="md"
+              >
+                {g.name}
+              </Button>
             </HStack>
           </ListItem>
         ))}

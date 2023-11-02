@@ -1,4 +1,4 @@
-import axios, { CanceledError } from "axios";
+import axios, { AxiosRequestConfig, CanceledError } from "axios";
 import { Entity } from "../entities/entity";
 
 export { CanceledError };
@@ -21,10 +21,11 @@ export class HttpService {
     return { request, cancel: () => controller.abort() };
   }
 
-  get<T>() {
+  get<T>(configs?: AxiosRequestConfig) {
     const controller = new AbortController();
     const request = client.get<T>(this.endpoint, {
       signal: controller.signal,
+      ...configs,
     });
     return { request, cancel: () => controller.abort() };
   }

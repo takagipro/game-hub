@@ -5,9 +5,20 @@ import service from "../services/game-service";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
+import { Genre } from "../entities/genre-entity";
 
-const GameGrid = () => {
-  const { data: games, error, isLoading } = useData<Game>(service);
+interface Props {
+  selectedGenre: Genre | null;
+}
+
+const GameGrid = ({ selectedGenre }: Props) => {
+  const {
+    data: games,
+    error,
+    isLoading,
+  } = useData<Game>(service, { params: { genres: selectedGenre?.id } }, [
+    selectedGenre?.id,
+  ]);
 
   const skeletons = [1, 2, 3, 4, 5, 6];
 
