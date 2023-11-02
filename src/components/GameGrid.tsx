@@ -5,20 +5,29 @@ import service from "../services/game-service";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
-import { Genre } from "../entities/genre-entity";
+import { GameQuery } from "../entities/game-query";
 
 interface Props {
-  selectedGenre: Genre | null;
+  gameQuery: GameQuery;
 }
 
-const GameGrid = ({ selectedGenre }: Props) => {
+const GameGrid = ({ gameQuery }: Props) => {
   const {
     data: games,
     error,
     isLoading,
-  } = useData<Game>(service, { params: { genres: selectedGenre?.id } }, [
-    selectedGenre?.id,
-  ]);
+  } = useData<Game>(
+    service,
+    {
+      params: {
+        genres: gameQuery.genre?.id,
+        parent_platforms: gameQuery.platform?.id,
+        ordering: gameQuery.sortBy,
+        search: gameQuery.searchText,
+      },
+    },
+    [gameQuery]
+  );
 
   const skeletons = [1, 2, 3, 4, 5, 6];
 

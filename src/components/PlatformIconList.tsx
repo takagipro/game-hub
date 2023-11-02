@@ -30,6 +30,8 @@ const PlatformIconList = ({ platforms }: Props) => {
     web: BsGlobe,
   };
 
+  if (!platforms) return null;
+
   return (
     <>
       <HStack marginY={2}>
