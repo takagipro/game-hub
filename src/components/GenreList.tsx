@@ -6,10 +6,11 @@ import cropImage from "../services/image-url-service";
 import GenreListSkeleton from "./GenreListSkeleton";
 
 interface Props {
+  selectedGenre: Genre | null;
   onSelectGenre: (genre: Genre) => void;
 }
 
-const GenreList = ({ onSelectGenre }: Props) => {
+const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
   const { data: genres, error, isLoading } = useData<Genre>(service);
 
   return (
@@ -26,6 +27,11 @@ const GenreList = ({ onSelectGenre }: Props) => {
                 borderRadius={8}
               />
               <Button
+                justifyContent="flex-start"
+                fontWeight={g.id === selectedGenre?.id ? "bold" : "normal"}
+                textDecoration={
+                  g.id === selectedGenre?.id ? "underline" : "none"
+                }
                 variant="link"
                 onClick={() => onSelectGenre(g)}
                 fontSize="md"

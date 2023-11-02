@@ -12,9 +12,6 @@ const useData = <T>(
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
-  console.log(configs);
-  console.log(dependencies);
-
   useEffect(
     () => {
       const { request, cancel } = service.get<ResponseEntity<T>>(configs);
